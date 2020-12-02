@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface CountrySymmaryInterface {
 
-    @get:GET("country")
+    @get:GET("countryName")
     val summary: Call<Summary?>?
     companion object{
         const val BASE_URL = "https://api.covid19api.com/live/country"
