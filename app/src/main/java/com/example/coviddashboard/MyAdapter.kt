@@ -1,6 +1,8 @@
 package com.example.coviddashboard
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -11,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddashboard.model.CountrySummary
 
 
-class MyAdapter(private val context:Context , private val countrySummaryList: MutableList<CountrySummary>): RecyclerView.Adapter<SummaryHolder>() {
+class MyAdapter(private val context:Context, private val countrySummaryList: MutableList<CountrySummary>): RecyclerView.Adapter<SummaryHolder>() {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SummaryHolder {
@@ -31,13 +34,5 @@ class MyAdapter(private val context:Context , private val countrySummaryList: Mu
         countryView.text = "${data.country}"
         totalConfirmed.text = "${data.totalConfirmed}"
         date.text = "${data.date}"
-
-
     }
-
-}
-interface OnSummaryItemClick{
-    fun onItemClick(item : CountrySummary, position: Int)
-
-
 }

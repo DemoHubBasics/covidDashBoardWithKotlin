@@ -11,6 +11,119 @@
    <androidx.appcompat.widget.LinearLayoutCompat
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:background="#FFFFFF"
+       android:backgroundTint="#FFFFFF"
+       android:orientation="horizontal">
+
+      <EditText
+          android:id="@+id/newConfirmedLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:ems="10"
+          android:inputType="textPersonName"
+          android:text="New Confirmed Global: " />
+
+      <TextView
+          android:id="@+id/newConfirmedText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+      <EditText
+          android:id="@+id/newDeathLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:ems="10"
+          android:inputType="textPersonName"
+          android:textAllCaps="false"
+          android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+          android:textColor="#D52929"
+          android:textIsSelectable="false"
+          android:text="New Death toll Global: " />
+
+      <TextView
+          android:id="@+id/newDeathText"
+          android:layout_width="match_parent"
+          android:textColor="#D52929"
+          android:layout_height="wrap_content" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textColor="#D52929"
+       android:orientation="horizontal">
+
+      <EditText
+          android:id="@+id/newRecoveredLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:ems="10"
+          android:inputType="textPersonName"
+          android:text="New Recovered Global: " />
+
+      <TextView
+          android:id="@+id/newRecoveredText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+      <EditText
+          android:id="@+id/totalDeathLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:ems="10"
+          android:inputType="textPersonName"
+          android:text="Total Death Global: "
+          android:textAllCaps="false"
+          android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+          android:textColor="#D52929"
+          android:textIsSelectable="false" />
+
+      <TextView
+          android:id="@+id/totalDeathText"
+          android:layout_width="match_parent"
+          android:textColor="#D52929"
+          android:layout_height="wrap_content" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+      <EditText
+          android:id="@+id/totalRecoveredLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:ems="10"
+          android:inputType="textPersonName"
+          android:text="Total Recovered Global: " />
+
+      <TextView
+          android:id="@+id/totalRecoveredText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
        android:orientation="horizontal">
 
       <EditText
@@ -22,18 +135,82 @@
           android:inputType="textPersonName"
           android:text="TotalConfirmed Global: " />
 
-      <androidx.recyclerview.widget.RecyclerView
-
-          android:id="@+id/totalConfirmedGlobalRe"
-          android:layout_marginTop="10dp"
+      <TextView
+          android:id="@+id/globalTotalText"
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
+
    </androidx.appcompat.widget.LinearLayoutCompat>
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="#FFFFFF"
+       android:backgroundTint="#FFFFFF"
+       android:gravity="center"
+       android:orientation="horizontal"
+       android:padding="10dp">
+
+
+      <Button
+          android:id="@+id/buttonCountry"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+          android:text="Country" />
+
+   </androidx.appcompat.widget.LinearLayoutCompat>
+
+   <androidx.appcompat.widget.LinearLayoutCompat
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/countryLabel"
+          android:layout_width="50dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
+          android:background="#FF9800"
+          android:gravity="center"
+          android:padding="10dp"
+          android:paddingLeft="20dp"
+          android:paddingRight="20dp"
+          android:text="Country"
+          android:textColor="#FFFFFF" />
+
+
+      <TextView
+          android:id="@+id/totalConfirmedLabel"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="5"
+          android:padding="10dp"
+          android:paddingLeft="10dp"
+          android:background="#FF9800"
+          android:textColor="#FFFFFF"
+          android:gravity="center"
+          android:text="Total Confirmed"
+          android:paddingRight="10dp" />
+
+      <TextView
+          android:id="@+id/dateLabel"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="5"
+          android:background="#FF9800"
+          android:textColor="#FFFFFF"
+          android:gravity="center"
+          android:text="Date"
+          android:padding="10dp" />
+   </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recyclerView"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content" />
+       android:layout_height="wrap_content"
+       android:layout_margin="10dp"
+       android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

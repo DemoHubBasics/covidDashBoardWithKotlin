@@ -1,30 +1,53 @@
 package com.example.coviddashboard
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidnetworking.gsonparserfactory.GsonParserFactory
 import com.example.coviddashboard.model.CountrySummary
-import com.example.coviddashboard.model.Global
 import com.example.coviddashboard.model.Summary
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.Cache
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity(), OnSummaryItemClick {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var rf: Retrofit? = Retrofit.Builder().baseUrl(RetrofitInterface.BASE_URL).
+        buttonCountry.setOnClickListener {
+            intent = Intent(this, CountryDetail::class.java)
+            startActivity(intent)
+        }
+        val cacheSize = (5 * 1024 * 1024).toLong()
+        val myCache = Cache(applicationContext.cacheDir, cacheSize)
+
+        val okHttpClient = OkHttpClient.Builder()
+            .cache(myCache)
+            .addInterceptor { chain ->
+                var request = chain.request()
+                request = if (hasNetwork(applicationContext)!!)
+                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                else
+                    request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
+                chain.proceed(request)
+            }
+            .build()
+        var rf: Retrofit? = Retrofit.Builder().baseUrl(RetrofitInterface.BASE_URL).client(okHttpClient).
         addConverterFactory(GsonConverterFactory.create()).build()
         var API = rf?.create(RetrofitInterface ::class.java)
         var call : Call<Summary?>? = API?.summary
+
         call?.enqueue(object:Callback<Summary?>{
             override fun onFailure(call: Call<Summary?>, t: Throwable) {
                 TODO("Not yet implemented")
@@ -47,12 +70,12 @@ class MainActivity : AppCompatActivity(), OnSummaryItemClick {
                 recyclerView.adapter = myAdapter
                 recyclerView.layoutManager = LinearLayoutManager(baseContext);
 
-                var globalAdapter =     GlobalAdapter(baseContext, response.body()!!.global as Global)
-                globalAdapter.notifyDataSetChanged()
-                totalConfirmedGlobalRe.adapter = globalAdapter
-                totalConfirmedGlobalRe.layoutManager = LinearLayoutManager(baseContext);
-
-
+                globalTotalText.text = response.body()?.global?.totalConfirmed.toString()
+                totalDeathText.text = response.body()?.global?.totalDeaths.toString()
+                totalRecoveredText.text = response.body()?.global?.totalRecovered.toString()
+                newConfirmedText.text = response.body()?.global?.newConfirmed.toString()
+                newDeathText.text = response.body()?.global?.newDeaths.toString()
+                newRecoveredText.text = response.body()?.global?.newRecovered.toString()
 
             }
 
@@ -60,8 +83,14 @@ class MainActivity : AppCompatActivity(), OnSummaryItemClick {
 
     }
 
-    override fun onItemClick(item: CountrySummary, position: Int) {
-         intent = Intent(this, CountryDetail::class.java)
+    private fun hasNetwork(applicationContext: Context?): Boolean? {
+        var isConnected: Boolean? = false // Initial Value
+        val connectivityManager = applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected)
+            isConnected = true
+        return isConnected
     }
+
 
 }
